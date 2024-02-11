@@ -14,5 +14,15 @@
             "email": "eu@adaiasmagdiel.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "pestphp/pest": "^2.33"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "tests": "./vendor/bin/pest tests"
+    }
 }
