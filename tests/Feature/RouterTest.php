@@ -49,5 +49,6 @@ it('executes a multiple methods route', function () {
 	Router::execute();
 	$outputGet = ob_get_clean();
 
+	expect($outputPost)->toBe('GET and POST Test');
 	expect($outputGet)->toBe('GET and POST Test');
 });
