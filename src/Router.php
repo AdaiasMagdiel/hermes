@@ -32,6 +32,30 @@ class Router
 		self::route("POST", $route, $action);
 	}
 
+	public static function put(string $route, callable $action): void
+	{
+		self::route("PUT", $route, $action);
+	}
+
+	public static function delete(string $route, callable $action): void
+	{
+		self::route("DELETE", $route, $action);
+	}
+
+	public static function head(string $route, callable $action): void
+	{
+		self::route("HEAD", $route, $action);
+	}
+	public static function options(string $route, callable $action): void
+	{
+		self::route("OPTIONS", $route, $action);
+	}
+
+	public static function patch(string $route, callable $action): void
+	{
+		self::route("PATCH", $route, $action);
+	}
+
 	public static function route404(): void
 	{
 		$uri = self::getURI();
