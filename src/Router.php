@@ -74,8 +74,6 @@ class Router
 		} finally {
 			restore_error_handler();
 		}
-
-		var_dump(Router::$routes);
 	}
 
 
