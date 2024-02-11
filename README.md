@@ -1,12 +1,12 @@
 # Hermes
 
-Hermes is a experimental lightweight PHP library for routing management. It provides a simple and intuitive way to define routes and execute actions based on HTTP requests.
+Hermes is an experimental lightweight PHP library for routing management. It provides a simple and intuitive way to define routes and execute actions based on HTTP requests.
 
 ## Features
 
 - Define routes easily using HTTP methods (GET, POST).
 - Execute actions based on requested routes.
-- Lightweight, experimental and easy to integrate into existing projects.
+- Lightweight, experimental, and easy to integrate into existing projects.
 
 ## Installation
 
@@ -18,6 +18,12 @@ You can download the source code from the [GitHub repository](https://github.com
 
 ```bash
 git clone https://github.com/AdaiasMagdiel/hermes.git
+```
+
+After downloading the source, make sure to run the following command to install dependencies including PestPHP for running tests:
+
+```bash
+composer install
 ```
 
 ## Usage
@@ -47,6 +53,14 @@ Router::execute();
 ```
 
 In this example, we define routes for different HTTP methods (`GET` and `POST`) and execute actions based on the requested routes.
+
+## Tests
+
+To run the tests for Hermes, you can use the following command:
+
+```bash
+composer run tests
+```
 
 ## License
 
