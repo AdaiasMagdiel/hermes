@@ -9,7 +9,7 @@ Router::get('/', function () {
 });
 
 Router::get('/about/', function () {
-    echo "About page";
+    echo "About";
 });
 
 Router::get('/easter-egg', function () {

@@ -38,21 +38,44 @@ class Router
 		echo "<p>The current endpoint \"{$uri}\" was not found in the server.</p>";
 	}
 
-	public static function execute(): void
+	public static function route500(): void
+	{
+		echo "Internal Server Error: it seems that there is an issue with the server.";
+	}
+
+	public static function manageRoute(): void
 	{
 		$method = self::getMethod();
 		$uri = self::getURI();
 
 		if (!isset(self::$routes[$method])) {
 			self::route404();
+			return;
 		}
 
 		if (!isset(self::$routes[$method][$uri])) {
 			self::route404();
+			return;
 		}
 
 		self::$routes[$method][$uri]();
 	}
+
+	public static function execute(): void
+	{
+		set_error_handler(function ($severity, $message, $file, $line) {
+			throw new \ErrorException($message, 500, $severity, $file, $line);
+		});
+
+		try {
+			self::manageRoute();
+		} catch (\Exception $e) {
+			self::route500();
+		} finally {
+			restore_error_handler();
+		}
+	}
+
 
 	public static function getMethod(): string
 	{
