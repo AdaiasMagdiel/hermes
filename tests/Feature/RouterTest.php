@@ -52,3 +52,24 @@ it('executes a multiple methods route', function () {
 	expect($outputPost)->toBe('GET and POST Test');
 	expect($outputGet)->toBe('GET and POST Test');
 });
+
+it('executes a route with or without trailing slash', function () {
+    Router::get('/test/', function () {
+        echo 'Test route';
+    });
+
+    ob_start();
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/test/';
+    Router::execute();
+    $outputWithSlash = ob_get_clean();
+
+    ob_start();
+    $_SERVER['REQUEST_METHOD'] = 'GET';
+    $_SERVER['REQUEST_URI'] = '/test';
+    Router::execute();
+    $outputWithoutSlash = ob_get_clean();
+
+    expect($outputWithSlash)->toBe('Test route');
+    expect($outputWithoutSlash)->toBe('Test route');
+});
