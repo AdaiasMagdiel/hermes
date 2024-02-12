@@ -1,5 +1,12 @@
 # Hermes
 
+[![Latest Stable Version](http://poser.pugx.org/adaiasmagdiel/hermes/v)](https://packagist.org/packages/adaiasmagdiel/hermes)
+[![Total Downloads](http://poser.pugx.org/adaiasmagdiel/hermes/downloads)](https://packagist.org/packages/adaiasmagdiel/hermes)
+[![Latest Unstable Version](http://poser.pugx.org/adaiasmagdiel/hermes/v/unstable)](https://packagist.org/packages/adaiasmagdiel/hermes)
+[![License](http://poser.pugx.org/adaiasmagdiel/hermes/license)](https://packagist.org/packages/adaiasmagdiel/hermes)
+[![PHP Version Require](http://poser.pugx.org/adaiasmagdiel/hermes/require/php)](https://packagist.org/packages/adaiasmagdiel/hermes)
+
+
 Hermes is an experimental lightweight PHP library for routing management. It provides a simple and intuitive way to define routes and execute actions based on HTTP requests.
 
 ## Features
@@ -10,20 +17,10 @@ Hermes is an experimental lightweight PHP library for routing management. It pro
 
 ## Installation
 
-You can install Hermes by downloading the source directly from GitHub.
-
-### Via GitHub
-
-You can download the source code from the [GitHub repository](https://github.com/AdaiasMagdiel/hermes).
+You can install Hermes via composer.
 
 ```bash
-git clone https://github.com/AdaiasMagdiel/hermes.git
-```
-
-After downloading the source, make sure to run the following command to install dependencies including PestPHP for running tests:
-
-```bash
-composer install
+composer require adaiasmagdiel/hermes
 ```
 
 ## Usage
@@ -53,11 +50,13 @@ Router::post('/submit', function() {
 
 // Optional changing the 404 page
 Router::set404(function() {
+    http_response_code(404);
     echo "This is a new 404 page."
 });
 
 // Optional changing the 500 page
 Router::set500(function() {
+    http_response_code(500);
     echo "This is a new 500 page."
 });
 
@@ -103,6 +102,8 @@ To run the tests for Hermes, you can use the following command:
 
 ```bash
 composer run tests
+
+
 ```
 
 ## License
@@ -111,7 +112,30 @@ Hermes is open-source software licensed under the MIT License. See the [LICENSE]
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit issues or pull requests.
+I welcome contributions to the Hermes project! To contribute, follow these steps:
+
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/AdaiasMagdiel/hermes.git
+   ```
+
+2. Install the development dependencies using Composer:
+   ```bash
+   composer install
+   ```
+
+3. Make your changes or additions to the codebase.
+
+4. Write and test your changes to ensure they work as expected:
+   ```bash
+   composer run tests
+   ```
+
+5. Commit your changes and push them to your fork of the repository.
+
+6. Submit a pull request with a clear description of your changes.
+
+I appreciate your contributions and feedback! If you encounter any issues or have suggestions for improvements, please don't hesitate to open an issue on GitHub.
 
 ## Credits
 
