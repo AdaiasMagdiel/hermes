@@ -68,8 +68,6 @@ In this example, we define routes for different HTTP methods (`GET` and `POST`) 
 
 First you need to initialize the `Router` class with the static `initialize` method. Then you can use the methods to add routes, also you can add a 404 and 500 page with the `set400` e `set500` methods.
 
-Claro! Vou adicionar uma seção sobre como usar parâmetros dinâmicos na URL:
-
 ### Dynamic Parameters in URL
 
 Hermes supports dynamic parameters in the URL, allowing you to create flexible routes that can handle various inputs. To define a dynamic parameter, use the syntax `/route/[param]`, where `[param]` is the name of the parameter.
