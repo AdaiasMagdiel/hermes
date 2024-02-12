@@ -23,6 +23,6 @@
         }
     },
     "scripts": {
-        "tests": "./vendor/bin/pest tests"
+        "tests": "./vendor/bin/pest"
     }
 }
