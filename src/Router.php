@@ -104,7 +104,8 @@ class Router
 		}
 	}
 
-	public static function clean(): void {
+	public static function clean(): void
+	{
 		self::$routes = [];
 		self::initialize();
 	}
@@ -120,10 +121,8 @@ class Router
 			return;
 		}
 
-		foreach (self::$routes[$method] as $route => $action)
-		{
-			if (preg_match($route, $uri, $params))
-			{
+		foreach (self::$routes[$method] as $route => $action) {
+			if (preg_match($route, $uri, $params)) {
 				array_shift($params);
 				$action(...$params);
 				return;
