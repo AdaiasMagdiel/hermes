@@ -142,6 +142,7 @@ class Router
 	{
 
 		$uri = $_SERVER["REQUEST_URI"];
+		$uri = explode('?', $uri)[0];
 		$uri = strlen($uri) > 1 ? rtrim($uri, '/') : $uri;
 
 		return $uri;

@@ -194,6 +194,20 @@ describe('Routes method tests', function () {
 
 		expect($output)->toBe("User with id: 42");
 	});
+
+	it('executes a route with a query string', function () {
+		Router::get('/route', function () {
+			echo 'Route with query string';
+		});
+
+		ob_start();
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		$_SERVER['REQUEST_URI'] = '/route?answer=42';
+		Router::execute();
+		$output = ob_get_clean();
+
+		expect($output)->toBe('Route with query string');
+	});
 });
 
 describe("Error routes tests", function () {
