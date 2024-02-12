@@ -4,6 +4,7 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["routing", "router", "web"],
+    "minimum-stability": "stable",
     "homepage": "https://github.com/AdaiasMagdiel/hermes",
     "autoload": {
         "psr-4": {
