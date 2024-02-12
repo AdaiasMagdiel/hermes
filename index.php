@@ -18,8 +18,8 @@ Router::get('/easter-egg', function () {
     echo "<h1>So Long, and Thanks for All the Fish</h1>";
 });
 
-Router::get('/user/[id]', function () {
-    echo "Next feature.";
+Router::get('/user/[id]', function (string $id) {
+    echo "User: {$id}";
 });
 
 Router::execute();
