@@ -67,12 +67,12 @@ class Router
 		self::route("PATCH", $route, $action);
 	}
 
-	public function set404(callable $action): void
+	public static function set404(callable $action): void
 	{
 		self::$routes["404"] = $action;
 	}
 
-	public function set500(callable $action): void
+	public static function set500(callable $action): void
 	{
 		self::$routes["500"] = $action;
 	}
