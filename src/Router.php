@@ -5,6 +5,7 @@ namespace AdaiasMagdiel\Hermes;
 class Router
 {
 	private static array $routes = [];
+	private static string $pattern = '/\/\[[a-zA-Z]+\]/';
 
 	public static function initialize(): void
 	{
@@ -21,6 +22,7 @@ class Router
 	{
 		$methods = is_array($method) ? $method : [$method];
 		$route = strlen($route) > 1 ? rtrim($route, '/') : $route;
+		$routeTemp = $route;
 
 		foreach ($methods as $method) {
 			$methodUpper = strtoupper($method);
@@ -29,7 +31,12 @@ class Router
 				self::$routes[$methodUpper] = [];
 			}
 
+			$route = preg_replace(self::$pattern, '/(\\w+)', $route);
+			$route = str_replace('/', '\/', $route);
+			$route = "/^{$route}$/";
+
 			self::$routes[$methodUpper][$route] = $action;
+			$route = $routeTemp;
 		}
 	}
 
@@ -92,22 +99,33 @@ class Router
 		}
 	}
 
+	public static function clean(): void {
+		self::$routes = [];
+		self::initialize();
+	}
+
 	private static function manageRoute(): void
 	{
 		$method = self::getMethod();
 		$uri = self::getURI();
+		$params = [];
 
 		if (!isset(self::$routes[$method])) {
 			self::$routes["404"]();
 			return;
 		}
 
-		if (!isset(self::$routes[$method][$uri])) {
-			self::$routes["404"]();
-			return;
+		foreach (self::$routes[$method] as $route => $action)
+		{
+			if (preg_match($route, $uri, $params))
+			{
+				array_shift($params);
+				$action(...$params);
+				return;
+			}
 		}
 
-		self::$routes[$method][$uri]();
+		self::$routes["404"]();
 	}
 
 	public static function getMethod(): string

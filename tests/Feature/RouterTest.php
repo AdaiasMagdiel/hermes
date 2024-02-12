@@ -3,9 +3,11 @@
 use AdaiasMagdiel\Hermes\Router;
 
 describe('Routes method tests', function () {
-	it('registers a GET route', function () {
-		Router::initialize();
+	beforeEach(function () {
+		Router::clean();
+	});
 
+	it('registers a GET route', function () {
 		Router::get('/test', function () {
 			echo 'GET route';
 		});
@@ -20,8 +22,6 @@ describe('Routes method tests', function () {
 	});
 
 	it('registers a POST route', function () {
-		Router::initialize();
-
 		Router::post('/test', function () {
 			echo 'POST route';
 		});
@@ -36,8 +36,6 @@ describe('Routes method tests', function () {
 	});
 
 	it('registers a PUT route', function () {
-		Router::initialize();
-
 		Router::put('/test', function () {
 			echo 'PUT route';
 		});
@@ -52,8 +50,6 @@ describe('Routes method tests', function () {
 	});
 
 	it('registers a DELETE route', function () {
-		Router::initialize();
-
 		Router::delete('/test', function () {
 			echo 'DELETE route';
 		});
@@ -68,8 +64,6 @@ describe('Routes method tests', function () {
 	});
 
 	it('registers a HEAD route', function () {
-		Router::initialize();
-
 		Router::head('/test', function () {
 			echo 'HEAD route';
 		});
@@ -84,8 +78,6 @@ describe('Routes method tests', function () {
 	});
 
 	it('registers a OPTIONS route', function () {
-		Router::initialize();
-
 		Router::options('/test', function () {
 			echo 'OPTIONS route';
 		});
@@ -100,8 +92,6 @@ describe('Routes method tests', function () {
 	});
 
 	it('registers a PATCH route', function () {
-		Router::initialize();
-
 		Router::patch('/test', function () {
 			echo 'PATCH route';
 		});
@@ -122,7 +112,7 @@ describe('Routes method tests', function () {
 
 		ob_start();
 		$_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['REQUEST_URI'] = '/not-found';
+		$_SERVER['REQUEST_URI'] = '/not-found';
 		Router::execute();
 		$output = ob_get_clean();
 
@@ -134,13 +124,13 @@ describe('Routes method tests', function () {
 			echo 'Custom 500 page';
 		});
 
-		Router::get('/error', function() {
+		Router::get('/error', function () {
 			echo $error;
 		});
 
 		ob_start();
 		$_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['REQUEST_URI'] = '/error';
+		$_SERVER['REQUEST_URI'] = '/error';
 		Router::execute();
 		$output = ob_get_clean();
 
@@ -148,8 +138,6 @@ describe('Routes method tests', function () {
 	});
 
 	it('executes a multiple methods route', function () {
-		Router::initialize();
-
 		Router::route(['GET', 'POST'], '/test', function () {
 			echo 'GET and POST Test';
 		});
@@ -166,13 +154,13 @@ describe('Routes method tests', function () {
 		Router::execute();
 		$outputGet = ob_get_clean();
 
+		var_dump($outputGet, $outputPost);
+
 		expect($outputPost)->toBe('GET and POST Test');
 		expect($outputGet)->toBe('GET and POST Test');
 	});
 
 	it('executes a route with or without trailing slash', function () {
-		Router::initialize();
-
 		Router::get('/test/', function () {
 			echo 'Test route';
 		});
@@ -192,34 +180,48 @@ describe('Routes method tests', function () {
 		expect($outputWithSlash)->toBe('Test route');
 		expect($outputWithoutSlash)->toBe('Test route');
 	});
+
+	it('executes a route with url params', function () {
+		Router::get('/user/[id]', function (string $id) {
+			echo "User with id: {$id}";
+		});
+
+		ob_start();
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		$_SERVER['REQUEST_URI'] = '/user/42';
+		Router::execute();
+		$output = ob_get_clean();
+
+		expect($output)->toBe("User with id: 42");
+	});
 });
 
 describe("Error routes tests", function () {
-    beforeEach(function () {
-        Router::initialize();
-    });
+	beforeEach(function () {
+		Router::clean();
+	});
 
-    it('executes a 404 page', function () {
-        ob_start();
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['REQUEST_URI'] = '/not-found';
-        Router::execute();
-        $output = ob_get_clean();
+	it('executes a 404 page', function () {
+		ob_start();
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		$_SERVER['REQUEST_URI'] = '/not-found';
+		Router::execute();
+		$output = ob_get_clean();
 
-        expect($output)->toBe('<p>The current endpoint was not found in the server.</p>');
-    });
+		expect($output)->toBe('<p>The current endpoint was not found in the server.</p>');
+	});
 
-    it('executes a 500 page', function () {
-        Router::get('/error', function () {
-            echo $error;
-        });
+	it('executes a 500 page', function () {
+		Router::get('/error', function () {
+			echo $error;
+		});
 
-        ob_start();
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['REQUEST_URI'] = '/error';
-        Router::execute();
-        $output = ob_get_clean();
+		ob_start();
+		$_SERVER['REQUEST_METHOD'] = 'GET';
+		$_SERVER['REQUEST_URI'] = '/error';
+		Router::execute();
+		$output = ob_get_clean();
 
-        expect($output)->toBe('<p>Internal Server Error: it seems that there is an issue with the server.</p>');
-    });
+		expect($output)->toBe('<p>Internal Server Error: it seems that there is an issue with the server.</p>');
+	});
 });
