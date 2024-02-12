@@ -57,13 +57,13 @@ Router::post('/submit', function() {
 // Optional changing the 404 page
 Router::set404(function() {
     http_response_code(404);
-    echo "This is a new 404 page."
+    echo "This is a new 404 page.";
 });
 
 // Optional changing the 500 page
 Router::set500(function() {
     http_response_code(500);
-    echo "This is a new 500 page."
+    echo "This is a new 500 page.";
 });
 
 Router::execute();
@@ -108,8 +108,6 @@ To run the tests for Hermes, you can use the following command:
 
 ```bash
 composer run tests
-
-
 ```
 
 ## License
