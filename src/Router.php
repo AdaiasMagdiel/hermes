@@ -10,10 +10,12 @@ class Router
 	public static function initialize(): void
 	{
 		self::$routes["404"] = function () {
+			http_response_code(404);
 			echo "<p>The current endpoint was not found in the server.</p>";
 		};
 
 		self::$routes["500"] = function () {
+			http_response_code(500);
 			echo "<p>Internal Server Error: it seems that there is an issue with the server.</p>";
 		};
 	}
