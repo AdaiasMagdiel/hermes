@@ -22,7 +22,7 @@ class Router
 	{
 		$methods = is_array($method) ? $method : [$method];
 		$route = strlen($route) > 1 ? rtrim($route, '/') : $route;
-		$routeTemp = $route;
+		$routeIsFormated = false;
 
 		foreach ($methods as $method) {
 			$methodUpper = strtoupper($method);
@@ -31,12 +31,15 @@ class Router
 				self::$routes[$methodUpper] = [];
 			}
 
-			$route = preg_replace(self::$pattern, '/(\\w+)', $route);
-			$route = str_replace('/', '\/', $route);
-			$route = "/^{$route}$/";
+			if (!$routeIsFormated) {
+				$route = preg_replace(self::$pattern, '/(\\w+)', $route);
+				$route = str_replace('/', '\/', $route);
+				$route = "/^{$route}$/";
+
+				$routeIsFormated = true;
+			}
 
 			self::$routes[$methodUpper][$route] = $action;
-			$route = $routeTemp;
 		}
 	}
 
