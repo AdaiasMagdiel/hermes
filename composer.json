@@ -3,6 +3,8 @@
     "description": "Hermes is a experimental lightweight PHP library for routing management. It provides a simple and intuitive way to define routes and execute actions based on HTTP requests.",
     "type": "library",
     "license": "MIT",
+    "keywords": ["routing", "router", "web"],
+    "homepage": "https://github.com/AdaiasMagdiel/hermes",
     "autoload": {
         "psr-4": {
             "AdaiasMagdiel\\Hermes\\": "src/"
