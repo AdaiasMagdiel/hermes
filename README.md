@@ -37,6 +37,8 @@ require_once "vendor/autoload.php";
 
 use AdaiasMagdiel\Hermes\Router;
 
+Router::initialize();
+
 Router::get('/', function() {
     echo "Hello, World!";
 });
@@ -49,10 +51,22 @@ Router::post('/submit', function() {
     // Handle form submission
 });
 
+// Optional changing the 404 page
+Router::set404(function() {
+    echo "This is a new 404 page."
+});
+
+// Optional changing the 500 page
+Router::set500(function() {
+    echo "This is a new 500 page."
+});
+
 Router::execute();
 ```
 
 In this example, we define routes for different HTTP methods (`GET` and `POST`) and execute actions based on the requested routes.
+
+First you need to initialize the `Router` class with the static `initialize` method. Then you can use the methods to add routes, also you can add a 404 and 500 page with the `set400` e `set500` methods. 
 
 ## Tests
 

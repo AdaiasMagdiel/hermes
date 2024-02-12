@@ -4,6 +4,8 @@ require_once "vendor/autoload.php";
 
 use AdaiasMagdiel\Hermes\Router;
 
+Router::initialize();
+
 Router::get('/', function () {
     echo "Home";
 });

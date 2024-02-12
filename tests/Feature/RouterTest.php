@@ -3,6 +3,8 @@
 use AdaiasMagdiel\Hermes\Router;
 
 it('executes a GET route', function () {
+	Router::initialize();
+	
 	Router::get('/test', function () {
 		echo "GET route";
 	});
@@ -18,6 +20,8 @@ it('executes a GET route', function () {
 });
 
 it('executes a POST route', function () {
+	Router::initialize();
+	
 	Router::post('/test', function () {
 		echo 'POST Test';
 	});
@@ -33,6 +37,8 @@ it('executes a POST route', function () {
 });
 
 it('executes a multiple methods route', function () {
+	Router::initialize();
+	
 	Router::route(['GET', 'POST'], '/test', function () {
 		echo 'GET and POST Test';
 	});
@@ -54,6 +60,8 @@ it('executes a multiple methods route', function () {
 });
 
 it('executes a route with or without trailing slash', function () {
+	Router::initialize();
+	
     Router::get('/test/', function () {
         echo 'Test route';
     });

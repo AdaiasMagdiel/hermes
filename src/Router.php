@@ -6,6 +6,17 @@ class Router
 {
 	private static array $routes = [];
 
+	public static function initialize(): void
+	{
+		self::$routes["404"] = function () {
+			echo "<p>The current endpoint was not found in the server.</p>";
+		};
+
+		self::$routes["500"] = function () {
+			echo "<p>Internal Server Error: it seems that there is an issue with the server.</p>";
+		};
+	}
+
 	public static function route(array|string $method, string $route, callable $action): void
 	{
 		$methods = is_array($method) ? $method : [$method];
@@ -56,33 +67,14 @@ class Router
 		self::route("PATCH", $route, $action);
 	}
 
-	public static function route404(): void
+	public function set404(callable $action): void
 	{
-		$uri = self::getURI();
-		echo "<p>The current endpoint \"{$uri}\" was not found in the server.</p>";
+		self::$routes["404"] = $action;
 	}
 
-	public static function route500(): void
+	public function set500(callable $action): void
 	{
-		echo "Internal Server Error: it seems that there is an issue with the server.";
-	}
-
-	public static function manageRoute(): void
-	{
-		$method = self::getMethod();
-		$uri = self::getURI();
-
-		if (!isset(self::$routes[$method])) {
-			self::route404();
-			return;
-		}
-
-		if (!isset(self::$routes[$method][$uri])) {
-			self::route404();
-			return;
-		}
-
-		self::$routes[$method][$uri]();
+		self::$routes["500"] = $action;
 	}
 
 	public static function execute(): void
@@ -94,12 +86,29 @@ class Router
 		try {
 			self::manageRoute();
 		} catch (\Exception $e) {
-			self::route500();
+			self::$routes["500"]();
 		} finally {
 			restore_error_handler();
 		}
 	}
 
+	private static function manageRoute(): void
+	{
+		$method = self::getMethod();
+		$uri = self::getURI();
+
+		if (!isset(self::$routes[$method])) {
+			self::$routes["404"]();
+			return;
+		}
+
+		if (!isset(self::$routes[$method][$uri])) {
+			self::$routes["404"]();
+			return;
+		}
+
+		self::$routes[$method][$uri]();
+	}
 
 	public static function getMethod(): string
 	{
