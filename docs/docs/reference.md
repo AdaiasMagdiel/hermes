@@ -4,47 +4,33 @@ Here's a reference for the `Router` class:
 
 ## Methods
 
-- [`initialize()`](#initialize) - Required before defining the first route.
-  - Initializes the router by setting default error handling routes (404 and 500).
+- [`initialize`](#initialize): Required before defining the first route. Initializes the router by setting default error handling routes (404 and 500).
 
-- [`route(array|string $method, string $route, callable $action): void`](#routearraystring-method-string-route-callable-action-void)
-  - Registers a route with the specified HTTP method(s), route pattern, and associated action.
+- [`route`](#routearraystring-method-string-route-callable-action-void): Registers a route with the specified HTTP method(s), route pattern, and associated action.
 
-- [`get(string $route, callable $action): void`](#getstring-route-callable-action-void)
-  - Registers a route for the HTTP GET method.
+- [`get`](#getstring-route-callable-action-void): Registers a route for the HTTP GET method.
 
-- [`post(string $route, callable $action): void`](#poststring-route-callable-action-void)
-  - Registers a route for the HTTP POST method.
+- [`post`](#poststring-route-callable-action-void): Registers a route for the HTTP POST method.
 
-- [`put(string $route, callable $action): void`](#putstring-route-callable-action-void)
-  - Registers a route for the HTTP PUT method.
+- [`put`](#putstring-route-callable-action-void): Registers a route for the HTTP PUT method.
 
-- [`delete(string $route, callable $action): void`](#deletestring-route-callable-action-void)
-  - Registers a route for the HTTP DELETE method.
+- [`delete`](#deletestring-route-callable-action-void): Registers a route for the HTTP DELETE method.
 
-- [`head(string $route, callable $action): void`](#headstring-route-callable-action-void)
-  - Registers a route for the HTTP HEAD method.
+- [`head`](#headstring-route-callable-action-void): Registers a route for the HTTP HEAD method.
 
-- [`options(string $route, callable $action): void`](#optionsstring-route-callable-action-void)
-  - Registers a route for the HTTP OPTIONS method.
+- [`options`](#optionsstring-route-callable-action-void): Registers a route for the HTTP OPTIONS method.
 
-- [`patch(string $route, callable $action): void`](#patchstring-route-callable-action-void)
-  - Registers a route for the HTTP PATCH method.
+- [`patch`](#patchstring-route-callable-action-void): Registers a route for the HTTP PATCH method.
 
-- [`set404(callable $action): void`](#set404callable-action-void)
-  - Sets a custom handler for the HTTP 404 Not Found error.
+- [`set404`](#set404callable-action-void): Sets a custom handler for the HTTP 404 Not Found error.
 
-- [`set500(callable $action): void`](#set500callable-action-void)
-  - Sets a custom handler for the HTTP 500 Internal Server Error.
+- [`set500`](#set500callable-action-void): Sets a custom handler for the HTTP 500 Internal Server Error.
 
-- [`fallback(callable $action): void`](#fallbackcallable-action-void)
-  - Sets a fallback handler to catch all unmatched routes.
+- [`fallback`](#fallbackcallable-action-void): Sets a fallback handler to catch all unmatched routes.
 
-- [`execute(): void`](#execute-void) - Required at the end of the routes declaration.
-  - Executes the router, matching the incoming request URI and method to registered routes and invoking associated actions.
+- [`execute`](#execute-void): Required at the end of the routes declaration. Executes the router, matching the incoming request URI and method to registered routes and invoking associated actions.
 
-- [`clean(): void`](#clean-void)
-  - Resets the router, clearing all registered routes and reinitializing default error handling routes.
+- [`clean`](#clean-void): Resets the router, clearing all registered routes and reinitializing default error handling routes.
 
 ## `initialize()`
 
@@ -61,7 +47,7 @@ Router::initialize();
 
 ## `route(array|string $method, string $route, callable $action): void`
 
-Registers a route with the specified HTTP method(s), route pattern, and associated action.
+Registers a route with the specified HTTP method(s), route pattern, and associated action. The `route` method can receive two or more HTTP methods, and can evaluate the same action for these methods.
 
 ```php
 <?php
@@ -69,6 +55,10 @@ use AdaiasMagdiel\Hermes\Router;
 
 Router::route('GET', '/hello', function () {
     echo "Hello, World!";
+});
+
+Route::route(['GET', 'POST', 'PATCH'], '/world', function () {
+    echo "See how this method can be used";
 });
 ```
 
