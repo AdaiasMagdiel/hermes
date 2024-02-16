@@ -8,7 +8,6 @@
 
 [![Latest Stable Version](http://poser.pugx.org/adaiasmagdiel/hermes/v)](https://packagist.org/packages/adaiasmagdiel/hermes)
 [![Total Downloads](http://poser.pugx.org/adaiasmagdiel/hermes/downloads)](https://packagist.org/packages/adaiasmagdiel/hermes)
-[![Latest Unstable Version](http://poser.pugx.org/adaiasmagdiel/hermes/v/unstable)](https://packagist.org/packages/adaiasmagdiel/hermes)
 [![License](http://poser.pugx.org/adaiasmagdiel/hermes/license)](https://packagist.org/packages/adaiasmagdiel/hermes)
 [![PHP Version Require](http://poser.pugx.org/adaiasmagdiel/hermes/require/php)](https://packagist.org/packages/adaiasmagdiel/hermes)
 
@@ -17,7 +16,7 @@ Hermes is an experimental lightweight PHP library for routing management. It pro
 
 ## Features
 
-- Define routes easily using HTTP methods (GET, POST).
+- Define routes easily using HTTP methods (GET, POST, PUT, DELETE, HEAD, OPTIONS and PATCH).
 - Execute actions based on requested routes.
 - Lightweight, experimental, and easy to integrate into existing projects.
 
@@ -72,6 +71,24 @@ Router::execute();
 In this example, we define routes for different HTTP methods (`GET` and `POST`) and execute actions based on the requested routes.
 
 First you need to initialize the `Router` class with the static `initialize` method. Then you can use the methods to add routes, also you can add a 404 and 500 page with the `set400` e `set500` methods.
+
+"It's possible to define a route that executes for two or more HTTP methods using the static method `route` like this:"
+
+```php
+<?php
+
+require_once "vendor/autoload.php";
+
+use AdaiasMagdiel\Hermes\Router;
+
+Router::initialize();
+
+Router::route(['GET', 'POST'], '/', function() {
+    echo "This route will be triggered for both GET and POST requests.";
+});
+
+Router::execute();
+```
 
 ### Dynamic Parameters in URL
 
