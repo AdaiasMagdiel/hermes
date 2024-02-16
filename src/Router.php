@@ -89,6 +89,11 @@ class Router
 		self::$routes["500"] = $action;
 	}
 
+	public static function fallback(callable $action): void
+	{
+		self::$routes["fallback"] = $action;
+	}
+
 	public static function execute(): void
 	{
 		set_error_handler(function ($severity, $message, $file, $line) {
@@ -117,7 +122,7 @@ class Router
 		$params = [];
 
 		if (!isset(self::$routes[$method])) {
-			self::$routes["404"]();
+			self::handleFallbackOrNotFound();
 			return;
 		}
 
@@ -129,10 +134,19 @@ class Router
 			}
 		}
 
-		self::$routes["404"]();
+		self::handleFallbackOrNotFound();
 	}
 
-	public static function getMethod(): string
+	private static function handleFallbackOrNotFound(): void
+	{
+		if (isset(self::$routes["fallback"])) {
+			self::$routes["fallback"]();
+		} else {
+			self::$routes["404"]();
+		}
+	}
+
+	private static function getMethod(): string
 	{
 		return strtoupper($_SERVER["REQUEST_METHOD"]);
 	}
