@@ -14,6 +14,17 @@
 
 Hermes is an experimental lightweight PHP library for routing management. It provides a simple and intuitive way to define routes and execute actions based on HTTP requests.
 
+## Navigation
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Tests](#tests)
+- [License](#license)
+- [Contributing](#contributing)
+- [Credits](#credits)
+
 ## Features
 
 - Define routes easily using HTTP methods (GET, POST, PUT, DELETE, HEAD, OPTIONS and PATCH).
@@ -72,52 +83,9 @@ In this example, we define routes for different HTTP methods (`GET` and `POST`) 
 
 First you need to initialize the `Router` class with the static `initialize` method. Then you can use the methods to add routes, also you can add a 404 and 500 page with the `set400` e `set500` methods.
 
-"It's possible to define a route that executes for two or more HTTP methods using the static method `route` like this:"
+## Documentation
 
-```php
-<?php
-
-require_once "vendor/autoload.php";
-
-use AdaiasMagdiel\Hermes\Router;
-
-Router::initialize();
-
-Router::route(['GET', 'POST'], '/', function() {
-    echo "This route will be triggered for both GET and POST requests.";
-});
-
-Router::execute();
-```
-
-### Dynamic Parameters in URL
-
-Hermes supports dynamic parameters in the URL, allowing you to create flexible routes that can handle various inputs. To define a dynamic parameter, use the syntax `/route/[param]`, where `[param]` is the name of the parameter.
-
-Here's how you can use dynamic parameters in Hermes:
-
-```php
-<?php
-
-use AdaiasMagdiel\Hermes\Router;
-
-Router::initialize();
-
-// Define a route with a dynamic parameter
-Router::get('/user/[id]', function (string $id) {
-    echo "User with ID: {$id}";
-});
-
-// Another example with more params
-Router::get('/blog/[category]/[slug]', function (string $category, string $slug) {
-    echo "Blog post in {$category}/{$slug}";
-});
-
-// Execute the router
-Router::execute();
-```
-
-Dynamic parameters allow you to create more flexible and expressive routes, making it easier to handle different scenarios in your web application. 
+To access the full documentation and see more examples of usage, please visit the [documentation page](https://adaiasmagdiel.github.io/hermes/).
 
 ## Tests
 
