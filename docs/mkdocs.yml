@@ -1,0 +1,12 @@
+site_name: Hermes Router Documentation
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.path
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+
