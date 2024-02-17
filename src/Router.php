@@ -94,6 +94,12 @@ class Router
 		self::$routes["fallback"] = $action;
 	}
 
+	public static function redirect(string $from, string $to, bool $permanent = false): void
+	{
+		if (!isset(self::$routes['redirects'])) self::$routes['redirects'] = [];
+		self::$routes['redirects'][] = ["from" => $from, "to" => $to, "permanent" => $permanent];
+	}
+
 	public static function execute(): void
 	{
 		set_error_handler(function ($severity, $message, $file, $line) {
@@ -120,6 +126,18 @@ class Router
 		$method = self::getMethod();
 		$uri = self::getURI();
 		$params = [];
+
+		if (isset(self::$routes['redirects'])) {
+			foreach (self::$routes['redirects'] as $route) {
+				if ($uri == $route["from"]) {
+					$statusCode = $route["permanent"] ? "301 Moved Permanently" : "302 Found";
+
+					header("HTTP/1.1 {$statusCode}");
+					header("Location: {$route['to']}");
+					exit;
+				}
+			}
+		}
 
 		if (!isset(self::$routes[$method])) {
 			self::handleFallbackOrNotFound();
@@ -154,8 +172,7 @@ class Router
 	private static function getURI(): string
 	{
 
-		$uri = $_SERVER["REQUEST_URI"];
-		$uri = explode('?', $uri)[0];
+		$uri = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 		$uri = strlen($uri) > 1 ? rtrim($uri, '/') : $uri;
 
 		return $uri;
