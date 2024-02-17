@@ -301,6 +301,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#redirects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redirects
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -357,6 +366,15 @@
   <a href="#fallback-route" class="md-nav__link">
     <span class="md-ellipsis">
       Fallback Route
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redirects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redirects
     </span>
   </a>
   
@@ -506,6 +524,42 @@
 <a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p">});</span>
 <a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
+</code></pre></div>
+<h2 id="redirects">Redirects</h2>
+<p>In Hermes, it's possible to define redirects as well. For this, you will use the <code>redirect</code> method.</p>
+<p>This method requires three arguments: the 'from' route, the 'to' route, and whether it is a permanent (301) or temporary (302) redirect.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">require_once</span> <span class="s2">&quot;vendor/autoload.php&quot;</span><span class="p">;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">use</span> <span class="nx">AdaiasMagdiel\Hermes\Router</span><span class="p">;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nx">Router</span><span class="o">::</span><span class="na">initialize</span><span class="p">();</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="nx">Router</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;/route&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="k">echo</span> <span class="s2">&quot;Every request on / will be redirected to this route&quot;</span><span class="p">;</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="p">});</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="nx">Router</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;/route&quot;</span><span class="p">);</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
+</code></pre></div>
+<p>You can define whether the redirect is permanent by using the third argument in the redirect method and setting it to true. This will set the status code to 301. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">require_once</span> <span class="s2">&quot;vendor/autoload.php&quot;</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">use</span> <span class="nx">AdaiasMagdiel\Hermes\Router</span><span class="p">;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="nx">Router</span><span class="o">::</span><span class="na">initialize</span><span class="p">();</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="nx">Router</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s2">&quot;/new-route&quot;</span><span class="p">,</span> <span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="k">echo</span> <span class="s2">&quot;A new route&quot;</span><span class="p">;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">});</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="nx">Router</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">&quot;/old-route&quot;</span><span class="p">,</span> <span class="s2">&quot;/new-route&quot;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
 </code></pre></div>
 
 

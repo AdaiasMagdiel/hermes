@@ -28,6 +28,8 @@ Here's a reference for the `Router` class:
 
 - [`fallback`](#fallbackcallable-action-void): Sets a fallback handler to catch all unmatched routes.
 
+- [`redirect`](#redirectstring-from-string-to-bool-permanent-false-void): The `redirect` method in Hermes facilitates the definition of redirects from one route to another, allowing for easy navigation control within web applications.
+
 - [`execute`](#execute-void): Required at the end of the routes declaration. Executes the router, matching the incoming request URI and method to registered routes and invoking associated actions.
 
 - [`clean`](#clean-void): Resets the router, clearing all registered routes and reinitializing default error handling routes.
@@ -215,6 +217,25 @@ Router::fallback(function () {
 ```
 
 ---
+
+## `redirect(string $from, string $to, bool $permanent = false): void`
+
+The `redirect` method enables the redirection of traffic from one route to another within the Hermes framework. It takes three arguments:
+
+- `$from` (string): Specifies the source route from which the redirection occurs.
+- `$to` (string): Specifies the destination route to which the traffic is redirected.
+- `$permanent` (bool, optional): Determines whether the redirection is permanent (true) or temporary (false). Default is set to false.
+
+```php
+<?php
+use AdaiasMagdiel\Hermes\Router;
+
+// $permanent set to true (permanent redirect)
+Router::redirect("/old-route", "/new-route", true);
+
+// $permanent set to false (temporary redirect)
+Router::redirect("/temporary-route", "/new-location", false);
+```
 
 ## `execute(): void`
 

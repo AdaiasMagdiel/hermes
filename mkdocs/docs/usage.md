@@ -154,3 +154,47 @@ Router::fallback(function () {
 
 Router::execute();
 ```
+
+## Redirects
+
+In Hermes, it's possible to define redirects as well. For this, you will use the `redirect` method.
+
+This method requires three arguments: the 'from' route, the 'to' route, and whether it is a permanent (301) or temporary (302) redirect.
+
+```php
+<?php
+
+require_once "vendor/autoload.php";
+
+use AdaiasMagdiel\Hermes\Router;
+
+Router::initialize();
+
+Router::get("/route", function () {
+    echo "Every request on / will be redirected to this route";
+});
+
+Router::redirect("/", "/route");
+
+Router::execute();
+```
+
+You can define whether the redirect is permanent by using the third argument in the redirect method and setting it to true. This will set the status code to 301. 
+
+```php
+<?php
+
+require_once "vendor/autoload.php";
+
+use AdaiasMagdiel\Hermes\Router;
+
+Router::initialize();
+
+Router::get("/new-route", function () {
+    echo "A new route";
+});
+
+Router::redirect("/old-route", "/new-route", true);
+
+Router::execute();
+```

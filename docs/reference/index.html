@@ -374,6 +374,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#redirectstring-from-string-to-bool-permanent-false-void" class="md-nav__link">
+    <span class="md-ellipsis">
+      redirect(string $from, string $to, bool $permanent = false): void
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#execute-void" class="md-nav__link">
     <span class="md-ellipsis">
       execute(): void
@@ -563,6 +572,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#redirectstring-from-string-to-bool-permanent-false-void" class="md-nav__link">
+    <span class="md-ellipsis">
+      redirect(string $from, string $to, bool $permanent = false): void
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#execute-void" class="md-nav__link">
     <span class="md-ellipsis">
       execute(): void
@@ -634,6 +652,9 @@
 </li>
 <li>
 <p><a href="#fallbackcallable-action-void"><code>fallback</code></a>: Sets a fallback handler to catch all unmatched routes.</p>
+</li>
+<li>
+<p><a href="#redirectstring-from-string-to-bool-permanent-false-void"><code>redirect</code></a>: The <code>redirect</code> method in Hermes facilitates the definition of redirects from one route to another, allowing for easy navigation control within web applications.</p>
 </li>
 <li>
 <p><a href="#execute-void"><code>execute</code></a>: Required at the end of the routes declaration. Executes the router, matching the incoming request URI and method to registered routes and invoking associated actions.</p>
@@ -765,21 +786,37 @@
 <a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">});</span>
 </code></pre></div>
 <hr />
-<h2 id="execute-void"><code>execute(): void</code></h2>
-<p>Executes the router, matching the incoming request URI and method to registered routes and invoking associated actions.</p>
-<p>This method is necessary at the end of your route definitions to invoke the current route.</p>
+<h2 id="redirectstring-from-string-to-bool-permanent-false-void"><code>redirect(string $from, string $to, bool $permanent = false): void</code></h2>
+<p>The <code>redirect</code> method enables the redirection of traffic from one route to another within the Hermes framework. It takes three arguments:</p>
+<ul>
+<li><code>$from</code> (string): Specifies the source route from which the redirection occurs.</li>
+<li><code>$to</code> (string): Specifies the destination route to which the traffic is redirected.</li>
+<li><code>$permanent</code> (bool, optional): Determines whether the redirection is permanent (true) or temporary (false). Default is set to false.</li>
+</ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">use</span> <span class="nx">AdaiasMagdiel\Hermes\Router</span><span class="p">;</span>
 <a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">// $permanent set to true (permanent redirect)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nx">Router</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">&quot;/old-route&quot;</span><span class="p">,</span> <span class="s2">&quot;/new-route&quot;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1">// $permanent set to false (temporary redirect)</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="nx">Router</span><span class="o">::</span><span class="na">redirect</span><span class="p">(</span><span class="s2">&quot;/temporary-route&quot;</span><span class="p">,</span> <span class="s2">&quot;/new-location&quot;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="execute-void"><code>execute(): void</code></h2>
+<p>Executes the router, matching the incoming request URI and method to registered routes and invoking associated actions.</p>
+<p>This method is necessary at the end of your route definitions to invoke the current route.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">use</span> <span class="nx">AdaiasMagdiel\Hermes\Router</span><span class="p">;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
 </code></pre></div>
 <hr />
 <h2 id="clean-void"><code>clean(): void</code></h2>
 <p>Resets the router, clearing all registered routes and reinitializing default error handling routes.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="k">use</span> <span class="nx">AdaiasMagdiel\Hermes\Router</span><span class="p">;</span>
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nx">Router</span><span class="o">::</span><span class="na">clean</span><span class="p">();</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="cp">&lt;?php</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">use</span> <span class="nx">AdaiasMagdiel\Hermes\Router</span><span class="p">;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nx">Router</span><span class="o">::</span><span class="na">clean</span><span class="p">();</span>
 </code></pre></div>
 
 
