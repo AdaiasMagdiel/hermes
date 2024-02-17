@@ -137,6 +137,20 @@ describe("Routes method tests", function () {
 		expect($output)->toBe("Custom 500 page");
 	});
 
+	it("tests if define / return a valid response", function () {
+		Router::get("/", function () {
+			echo "Home";
+		});
+
+		ob_start();
+		$_SERVER["REQUEST_METHOD"] = "GET";
+		$_SERVER["REQUEST_URI"] = "/";
+		Router::execute();
+		$output = ob_get_clean();
+
+		expect($output)->toBe("Home");
+	});
+
 	it("executes a multiple methods route", function () {
 		Router::route(["GET", "POST"], "/test", function () {
 			echo "GET and POST Test";
@@ -153,8 +167,6 @@ describe("Routes method tests", function () {
 		$_SERVER["REQUEST_URI"] = "/test";
 		Router::execute();
 		$outputGet = ob_get_clean();
-
-		var_dump($outputGet, $outputPost);
 
 		expect($outputPost)->toBe("GET and POST Test");
 		expect($outputGet)->toBe("GET and POST Test");
