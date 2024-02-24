@@ -207,6 +207,33 @@ describe("Routes method tests", function () {
 		expect($output)->toBe("User with id: 42");
 	});
 
+	it("verify if url params accept symbols", function () {
+		Router::get("/[param]", function (string $param) {
+			echo "The param is: {$param}";
+		});
+
+		ob_start();
+		$_SERVER["REQUEST_METHOD"] = "GET";
+		$_SERVER["REQUEST_URI"] = "/test-with-dash";
+		Router::execute();
+		$output = ob_get_clean();
+		expect($output)->toBe("The param is: test-with-dash");
+
+		ob_start();
+		$_SERVER["REQUEST_METHOD"] = "GET";
+		$_SERVER["REQUEST_URI"] = "/test.with.dot";
+		Router::execute();
+		$output = ob_get_clean();
+		expect($output)->toBe("The param is: test.with.dot");
+
+		ob_start();
+		$_SERVER["REQUEST_METHOD"] = "GET";
+		$_SERVER["REQUEST_URI"] = "/test0with9number";
+		Router::execute();
+		$output = ob_get_clean();
+		expect($output)->toBe("The param is: test0with9number");
+	});
+
 	it("executes a route with a query string", function () {
 		Router::get("/route", function () {
 			echo "Route with query string";
