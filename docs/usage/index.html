@@ -437,7 +437,7 @@
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
 </code></pre></div>
 <h2 id="custom-error-routes">Custom Error Routes</h2>
-<p>You can customize the Not Found (404) and the Internal Server Error (500) route with the static <code>set404</code> and <code>set500</code> methods.</p>
+<p>You can customize the Not Found (404) and the Internal Server Error (500) route with the static <code>set404</code> and <code>set500</code> methods. The <code>set500</code> method receive the Exception object as argument, so you can handle it.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="k">require_once</span> <span class="s2">&quot;vendor/autoload.php&quot;</span><span class="p">;</span>
@@ -453,12 +453,13 @@
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">});</span>
 <a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
 <a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="c1">// Optional changing the 500 page</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="nx">Router</span><span class="o">::</span><span class="na">set500</span><span class="p">(</span><span class="k">function</span><span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="nx">Router</span><span class="o">::</span><span class="na">set500</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 <a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="nb">http_response_code</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 <a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="k">echo</span> <span class="s2">&quot;This is a new 500 page.&quot;</span><span class="p">;</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">});</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$e</span><span class="p">);</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="p">});</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="nx">Router</span><span class="o">::</span><span class="na">execute</span><span class="p">();</span>
 </code></pre></div>
 <h2 id="dynamic-parameters-in-url">Dynamic Parameters in URL</h2>
 <p>Hermes supports dynamic parameters in the URL, allowing you to create flexible routes that can handle various inputs. To define a dynamic parameter, use the syntax <code>/route/[param]</code>, where <code>[param]</code> is the name of the parameter.</p>

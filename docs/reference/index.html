@@ -766,13 +766,14 @@
 </code></pre></div>
 <hr />
 <h2 id="set500callable-action-void"><code>set500(callable $action): void</code></h2>
-<p>Sets a custom handler for the HTTP 500 Internal Server Error.</p>
+<p>Sets a custom handler for the HTTP 500 Internal Server Error. This method receive the raised exception as argument.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">&lt;?php</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">use</span> <span class="nx">AdaiasMagdiel\Hermes\Router</span><span class="p">;</span>
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nx">Router</span><span class="o">::</span><span class="na">set500</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span> <span class="p">{</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nx">Router</span><span class="o">::</span><span class="na">set500</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
 <a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="k">echo</span> <span class="s2">&quot;500 Internal Server Error: There was a server-side issue.&quot;</span><span class="p">;</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="p">});</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$e</span><span class="p">);</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">});</span>
 </code></pre></div>
 <hr />
 <h2 id="fallbackcallable-action-void"><code>fallback(callable $action): void</code></h2>
