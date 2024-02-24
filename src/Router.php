@@ -14,9 +14,10 @@ class Router
 			echo "<p>The current endpoint was not found in the server.</p>";
 		};
 
-		self::$routes["500"] = function () {
+		self::$routes["500"] = function (\Exception $e) {
 			http_response_code(500);
-			echo "<p>Internal Server Error: it seems that there is an issue with the server.</p>";
+			echo "<p>Internal Server Error: it seems that there is an issue with the server.</p><br>";
+			var_dump($e);
 		};
 	}
 
@@ -109,7 +110,7 @@ class Router
 		try {
 			self::manageRoute();
 		} catch (\Exception $e) {
-			self::$routes["500"]();
+			self::$routes["500"]($e);
 		} finally {
 			restore_error_handler();
 		}
