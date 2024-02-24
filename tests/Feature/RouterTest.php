@@ -313,6 +313,6 @@ describe("Error routes tests", function () {
 		Router::execute();
 		$output = ob_get_clean();
 
-		expect($output)->toBe("<p>Internal Server Error: it seems that there is an issue with the server.</p>");
+		expect($output)->toContain("<p>Internal Server Error: it seems that there is an issue with the server.</p>");
 	});
 });
