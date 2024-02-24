@@ -5,7 +5,8 @@ namespace AdaiasMagdiel\Hermes;
 class Router
 {
 	private static array $routes = [];
-	private static string $pattern = '/\/\[[a-zA-Z]+\]/';
+	private static string $pattern = '/\/\[[a-zA-Z0-9\.\-_]+\]/';
+	private static string $paramPattern = '/([a-zA-Z0-9\.\-_]+)';
 
 	public static function initialize(): void
 	{
@@ -35,7 +36,7 @@ class Router
 			}
 
 			if (!$routeIsFormated) {
-				$route = preg_replace(self::$pattern, '/(\\w+)', $route);
+				$route = preg_replace(self::$pattern, self::$paramPattern, $route);
 				$route = str_replace('/', '\/', $route);
 				$route = "/^{$route}$/";
 
