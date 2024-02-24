@@ -188,14 +188,15 @@ Router::set404(function () {
 
 ## `set500(callable $action): void`
 
-Sets a custom handler for the HTTP 500 Internal Server Error.
+Sets a custom handler for the HTTP 500 Internal Server Error. This method receive the raised exception as argument.
 
 ```php
 <?php
 use AdaiasMagdiel\Hermes\Router;
 
-Router::set500(function () {
+Router::set500(function (\Exception $e) {
     echo "500 Internal Server Error: There was a server-side issue.";
+    var_dump($e);
 });
 ```
 
