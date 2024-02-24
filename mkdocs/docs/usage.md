@@ -50,7 +50,7 @@ Router::execute();
 
 ## Custom Error Routes
 
-You can customize the Not Found (404) and the Internal Server Error (500) route with the static `set404` and `set500` methods.
+You can customize the Not Found (404) and the Internal Server Error (500) route with the static `set404` and `set500` methods. The `set500` method receive the Exception object as argument, so you can handle it.
 
 ```php
 <?php
@@ -68,9 +68,10 @@ Router::set404(function() {
 });
 
 // Optional changing the 500 page
-Router::set500(function() {
+Router::set500(function(\Exception $e) {
     http_response_code(500);
     echo "This is a new 500 page.";
+    var_dump($e);
 });
 
 Router::execute();
